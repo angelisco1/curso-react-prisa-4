@@ -34,8 +34,8 @@ function shuffle(equipos: Array<string>): Array<string> {
 }
 
 
-['Real Madrid', 'Valencia', 'Barcelona', 'Sevilla']
-['Real Madrid', 'Valencia', 'Sevilla']
+// ['Real Madrid', 'Valencia', 'Barcelona', 'Sevilla']
+// ['Real Madrid', 'Valencia', 'Sevilla']
 
 
 // Usar recursion

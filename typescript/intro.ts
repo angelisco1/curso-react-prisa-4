@@ -179,3 +179,232 @@ let tienenMasDe5 = nombresSeries.every((titulo) => {
 })
 
 console.log(tienenMasDe5)
+
+
+function sustituirString(texto: string, textoASustituir: string, sustituirPor: string = '*'): string {
+  // if (!sustituirPor) {
+  //   sustituirPor = '*'
+  // }
+  const regExp = new RegExp(textoASustituir, 'ig');
+  texto = texto.replace(regExp, sustituirPor);
+  return texto;
+}
+
+console.log(sustituirString('Hola mundo!', 'o')) // H*la mund*!
+console.log(sustituirString('Hola mundo!', 'o', '-')) // H*la mund*!
+
+
+
+// const sumar = (n1, n2) => n1 + n2
+const sumar = (n1, n2) => { return n1 + n2 }
+console.log(sumar(1, 2))
+
+// const returnObj = (name) => ({ [name]: name + '!' })
+const returnObj = (name) => ({ name: name + '!' })
+console.log(returnObj('Angel')) // { name: 'Angel!' }
+
+
+function pelicula() {
+  this.titulo = 'Titulo de la pelicula'
+  var self = this;
+
+  // setTimeout(function () {
+  //   console.log(this.titulo)
+  // }, 1500)
+  // setTimeout(function () {
+  //   console.log(self.titulo)
+  // }, 1500)
+  setTimeout(() => {
+    console.log(this.titulo)
+  }, 1500)
+}
+
+pelicula()
+
+
+function doble(valor: number);
+function doble(valor: string);
+
+function doble(valor: any) {
+  const tipo = typeof valor;
+  if (tipo == 'number') {
+    return valor * 2;
+  } else {
+    return valor + valor;
+  }
+}
+
+// let dobleDeTrue = doble(true);
+let dobleDe4 = doble(4);
+let dobleDeHola = doble('Hola');
+console.log(dobleDe4)
+console.log(dobleDeHola)
+
+
+interface Direccion {
+  cp?: number
+}
+
+
+interface Persona {
+  nombre: string,
+  apellidos: string,
+  dni?: string,
+  direccion?: Direccion
+}
+
+interface Desarrollador extends Persona {
+  lang: string,
+  fn: () => {
+    return ''
+  }
+}
+
+const desarrolladorJS: Desarrollador = {
+  lang: 'JS',
+  nombre: 'A',
+  apellidos: 'B',
+}
+
+class Animal {
+  // public nombre: string;
+  // private tipo: string;
+
+  // constructor(nombre: string, tipo: string) {
+  //   this.nombre = nombre
+  //   this.tipo = tipo
+  // }
+  constructor(public nombre: string, protected _tipo: string, readonly id: number) { }
+
+  get tipo(): string {
+    return this._tipo;
+  }
+
+  set tipo(newTipo: string) {
+    // if (false) {
+
+    // }
+    this._tipo = newTipo
+  }
+
+  toString(): string {
+    return `Animal:
+      Nombre: ${this.nombre}
+      Tipo: ${this.tipo}`
+  }
+}
+
+const roko = new Animal('Roko', 'perro', 2)
+console.log(roko.nombre)
+console.log(roko.toString())
+console.log(roko.tipo)
+roko.tipo = 'gato'
+console.log(roko.tipo)
+// roko.id = 3;
+
+
+class Perro extends Animal {
+  constructor(public nombre: string, readonly id: number) {
+    super(nombre, 'perro', id)
+  }
+
+  toString() {
+    return `${super.toString()}
+      Sonido: Guauu
+    `
+  }
+
+  otraFuncion() {
+    console.log(this._tipo)
+  }
+}
+
+const charly = new Perro('Charly', 4)
+console.log(charly.toString())
+charly.otraFuncion()
+
+
+
+enum Direction { Up = 100, Down = 102, Left = 99, Right };
+console.log(Direction[100]);
+
+enum Paises { Espanya = 'es', Colombia = 'co', Mexico = 'mx', EEUU = 'us' };
+console.log(Paises.Colombia)
+
+
+interface Inventario<T> {
+  addItem: (item: T) => void;
+  getItemsInventario: () => Array<T>;
+}
+
+interface Portatil {
+  marca: string;
+}
+
+class Catalogo<T> implements Inventario<T> {
+  private catalogo = new Array<T>();
+  addItem(item: T) {
+    this.catalogo.push(item);
+  }
+  getItemsInventario(): Array<T> {
+    return this.catalogo;
+  }
+}
+
+const portatilHp = {marca: 'HP'}
+
+let catalogoPortatil = new Catalogo<Portatil>();
+catalogoPortatil.addItem(portatilHp)
+catalogoPortatil.addItem({marca: 'Lenovo'});
+let items = catalogoPortatil.getItemsInventario();
+console.log(items)
+
+
+let catalogoAnimal = new Catalogo<Animal>();
+catalogoAnimal.addItem(roko)
+catalogoAnimal.addItem(charly)
+// catalogoAnimal.addItem(portatilHp)
+
+
+
+
+class Disponible {
+  public estaDisponible: boolean = false;
+
+  toggleDisponible() {
+    this.estaDisponible = !this.estaDisponible;
+  }
+}
+
+class Persona {
+  constructor(public nombre: string, public estaDisponible: boolean = false) {}
+}
+
+class HabitacionHotel {
+  constructor(public numHabitacion: number, public estaDisponible: boolean = false) {}
+}
+
+
+interface Persona extends Disponible {}
+interface HabitacionHotel extends Disponible {}
+
+function applyMixins(mixins, clase) {
+  mixins.forEach(mixin => {
+    Object.getOwnPropertyNames(mixin.prototype).forEach(prop => {
+      clase.prototype[prop] = mixin.prototype[prop]
+    })
+  })
+}
+
+applyMixins([Disponible], Persona);
+applyMixins([Disponible], HabitacionHotel);
+
+const angel = new Persona('Angel')
+console.log(angel.estaDisponible)
+angel.toggleDisponible()
+console.log(angel.estaDisponible)
+
+const hhotel = new HabitacionHotel(23)
+console.log(hhotel.estaDisponible)
+hhotel.toggleDisponible()
+console.log(hhotel.estaDisponible)
