@@ -1,0 +1,17 @@
+$posPX: 15px;
+
+.contenedorMeme {
+  position: relative;
+}
+
+.textoMeme {
+  position: absolute;
+  text-align: center;
+  font-size: 25px;
+  &.textoAbajo {
+    bottom: $posPX;
+  }
+  &.textoArriba {
+    top: $posPX;
+  }
+}
