@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Card = ({titulo, imgUrl, descripcion}) => {
+const Card = ({titulo, imgUrl, descripcion, darkMode}) => {
+  console.log('DarkMode: ', darkMode)
+
   return (
     <div>
       <img width="150" src={imgUrl} alt={`Logo de ${titulo}`} />

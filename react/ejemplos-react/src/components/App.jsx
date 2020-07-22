@@ -3,6 +3,8 @@ import TiposDeComponentes from './tipos-de-componentes/TiposDeComponentes';
 import PropiedadesYEstado from './propiedades-y-estado/PropiedadesYEstado';
 import ListasYFormularios from './listas-y-formularios/ListasYFormularios';
 import CicloDeVida from './ciclo-de-vida/CicloDeVida';
+import TemasAvanzados from './temas-avanzados/TemasAvanzados';
+import Hooks from './hooks/Hooks';
 
 export default class App extends Component {
   render() {
@@ -13,7 +15,9 @@ export default class App extends Component {
         {/* <TiposDeComponentes /> */}
         {/* <PropiedadesYEstado /> */}
         {/* <ListasYFormularios /> */}
-        <CicloDeVida />
+        {/* <CicloDeVida /> */}
+        {/* <TemasAvanzados /> */}
+        <Hooks />
       </div>
     )
   }

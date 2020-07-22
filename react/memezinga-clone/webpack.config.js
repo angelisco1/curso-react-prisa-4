@@ -10,7 +10,9 @@ module.exports = {
     path: outputPath
   },
   plugins: [
-    new MiniCSSPlugin(),
+    new MiniCSSPlugin({
+      filename: '[name].css',
+    }),
   ],
   module: {
     rules: [
