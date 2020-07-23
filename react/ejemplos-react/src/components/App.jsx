@@ -5,6 +5,7 @@ import ListasYFormularios from './listas-y-formularios/ListasYFormularios';
 import CicloDeVida from './ciclo-de-vida/CicloDeVida';
 import TemasAvanzados from './temas-avanzados/TemasAvanzados';
 import Hooks from './hooks/Hooks';
+import Routing from './routing/Routing';
 
 export default class App extends Component {
   render() {
@@ -17,7 +18,8 @@ export default class App extends Component {
         {/* <ListasYFormularios /> */}
         {/* <CicloDeVida /> */}
         {/* <TemasAvanzados /> */}
-        <Hooks />
+        {/* <Hooks /> */}
+        <Routing />
       </div>
     )
   }
