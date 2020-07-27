@@ -1,18 +1,23 @@
 const path = require('path');
-const MiniCSSPlugin = require('mini-css-extract-plugin')
+// const MiniCSSPlugin = require('mini-css-extract-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const entryPath = path.join(__dirname, 'src');
 const outputPath = path.join(__dirname, 'dist');
 
+const coloresExtract = new ExtractTextPlugin('colores.css')
+const stylesExtract = new ExtractTextPlugin('styles.css')
+
 module.exports = {
-  entry: path.join(entryPath, 'index.js'),
+  entry: [
+    path.join(entryPath, 'index.js'),
+  ],
   output: {
     filename: 'bundle.js',
     path: outputPath
   },
   plugins: [
-    new MiniCSSPlugin({
-      filename: '[name].css',
-    }),
+    coloresExtract,
+    stylesExtract,
   ],
   module: {
     rules: [
@@ -21,20 +26,19 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(css|scss|sass)$/,
-        // loaders: ['style-loader', 'css-loader', 'sass-loader']
-        // loaders: [MiniCSSPlugin.loader, 'css-loader', 'sass-loader']
-        use: [
-          {
-            loader: MiniCSSPlugin.loader,
-            options: {
-              publicPath: outputPath,
-            },
-          },
+        test: /styles\.(css|scss|sass)$/,
+        loader: stylesExtract.extract([
           'css-loader',
           'sass-loader'
-        ],
-      }
+        ])
+      },
+      {
+        test: /colores\.(css|scss|sass)$/,
+        loader: coloresExtract.extract([
+          'css-loader',
+          'sass-loader'
+        ])
+      },
     ]
   },
   devServer: {
